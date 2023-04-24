@@ -1,21 +1,3 @@
-// {
-//   "env": {
-//     "commonjs": true,
-//     "node": true,
-//     "mocha": true
-//   },
-//   "ignorePatterns": ["*.js"],
-//   "extends": ["airbnb-base", "airbnb-typescript/base", "plugin:prettier/recommended"],
-//   "parserOptions": {
-//     "project": "./tsconfig.json"
-//   },
-//   "rules": {
-//     "import/prefer-default-export": "off",
-//     "class-methods-use-this": "off"
-//     "@ty"
-//   }
-// }
-
 module.exports = {
   parser: '@typescript-eslint/parser', // Specifies the ESLint parser
   extends: [
