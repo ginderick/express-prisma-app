@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import express from 'express';
 import Logger from './loaders/logger';
 
@@ -8,14 +10,19 @@ async function startServer() {
     res.send('Hello World!');
   });
 
-  app.listen(8000, () => {
-    // eslint-disable-next-line no-console
-    Logger.info(`
+  app
+    .listen(8000, () => {
+      // eslint-disable-next-line no-console
+      Logger.info(`
       ################################################
       🛡️  Server listening on port: ${8000} 🛡️
       ################################################
     `);
-  });
+    })
+    .on('error', err => {
+      Logger.error(err);
+      process.exit(1);
+    });
 }
 
 startServer();
