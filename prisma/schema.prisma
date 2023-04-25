@@ -9,3 +9,22 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Complaint {
+  id            Int       @id @default(autoincrement())
+  address       String
+  branch        String
+  contact       String
+  date_resolved Int?
+  last_message  String
+  messages      Message[]
+}
+
+model Message {
+  id          Int        @id @default(autoincrement())
+  complaint   Complaint? @relation(fields: [complaintId], references: [id])
+  message     String
+  datetime    Int
+  from        String
+  complaintId Int
+}
