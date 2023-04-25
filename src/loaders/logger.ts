@@ -1,29 +1,21 @@
 import config from '../config/index';
-import winston from 'winston';
+import winston, {format} from 'winston';
+const {timestamp, combine, errors, printf} = format;
 
-const transports = [];
-if (process.env.NODE_ENV !== 'development') {
-  transports.push(new winston.transports.Console());
-} else {
-  transports.push(
-    new winston.transports.Console({
-      format: winston.format.combine(winston.format.cli(), winston.format.splat()),
-    })
-  );
-}
+const logFormat = printf(({level, message, timestamp, stack}) => {
+  return `${timestamp} ${level}: ${stack || message}`;
+});
 
 const LoggerInstance = winston.createLogger({
   level: config.logs.level,
   levels: winston.config.npm.levels,
-  format: winston.format.combine(
-    winston.format.timestamp({
-      format: 'YYYY-MM-DD HH:mm:ss',
-    }),
-    winston.format.errors({stack: true}),
-    winston.format.splat(),
-    winston.format.json()
+  format: combine(
+    format.colorize(),
+    timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
+    errors({stack: true}),
+    logFormat
   ),
-  transports,
+  transports: [new winston.transports.Console()],
 });
 
 export default LoggerInstance;
