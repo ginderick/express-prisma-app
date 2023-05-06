@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  testing:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    networks:
+      testing:
+        ipv4_address: 172.20.0.2
+    restart: unless-stopped
+
+  db:
+    # will build ./docker/db/Dockerfile
+    image: postgres:14.6
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      testing:
+        ipv4_address: 172.20.0.3
