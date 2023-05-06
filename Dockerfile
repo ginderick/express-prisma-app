@@ -17,5 +17,8 @@ COPY package*.json ${LAMBDA_TASK_ROOT}/
 RUN npm ci --omit=dev && rm package-lock.json node_modules/.package-lock.json
 
 COPY --from=build /app/dist ${LAMBDA_TASK_ROOT}
+COPY --from=build /app/prisma ${LAMBDA_TASK_ROOT}
+
+RUN npx prisma generate
 
 CMD ["lambda.handler"]
