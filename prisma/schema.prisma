@@ -14,8 +14,8 @@ model Product {
   id       Int    @id @default(autoincrement())
   sku      String
   name     String
-  quantity String
-  price    String
+  quantity Int
+  price    Int
 }
 
 model User {
