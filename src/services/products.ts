@@ -17,7 +17,7 @@ export default class ProductsService {
 
   public async addProduct(data: any) {
     this.logger.info('Service: Adding a product');
-    const complaint = this.productsRepository.addProduct(data);
-    return complaint;
+    const product = this.productsRepository.addProduct(data);
+    return product;
   }
 }
