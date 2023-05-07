@@ -1,9 +1,9 @@
 import {Router} from 'express';
-import complaints from './routes/complaints';
+import products from './routes/products';
 
 const routes = () => {
   const app = Router();
-  complaints(app);
+  products(app);
 
   return app;
 };
