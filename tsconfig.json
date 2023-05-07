@@ -21,6 +21,7 @@
     "allowJs": true,
     "noEmit": false,
     "esModuleInterop": true,
+    "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
