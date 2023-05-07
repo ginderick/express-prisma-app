@@ -1,8 +1,6 @@
-import {PrismaClient} from '@prisma/client';
+import prisma from '../../prisma';
 import {Inject, Service} from 'typedi';
 import {Logger} from 'winston';
-
-const prisma = new PrismaClient();
 
 @Service()
 export default class ProductsRepository {
