@@ -21,7 +21,7 @@ const products = (app: Router) => {
   route.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const productsService = Container.get(ProductsService);
-      const product = await productsService.addProduct();
+      const product = await productsService.addProduct(req.body);
       return res.status(201).json(product);
     } catch (error) {
       return next(error);

@@ -13,13 +13,13 @@ export default class ProductsRepository {
     return complaints;
   }
 
-  public async addProduct() {
+  public async addProduct(data: any) {
     const product = prisma.product.create({
       data: {
-        sku: '123',
-        name: 'shoes',
-        quantity: '1',
-        price: '112',
+        sku: data.sku,
+        name: data.name,
+        quantity: data.quantity,
+        price: data.price,
       },
     });
     return product;
