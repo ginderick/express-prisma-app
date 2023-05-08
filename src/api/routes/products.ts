@@ -2,6 +2,9 @@ import ProductsService from '../../services/products';
 import {Router, Request, Response, NextFunction} from 'express';
 import Container from 'typedi';
 import {Logger} from 'winston';
+import middlewares from '../middlewares';
+import {ProductSchema} from '../../schema/ProductSchema';
+// import ProductSchema from '../../schema/ProductSchema';
 
 const route = Router();
 
@@ -18,15 +21,21 @@ const products = (app: Router) => {
     }
   });
 
-  route.post('/', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const productsService = Container.get(ProductsService);
-      const product = await productsService.addProduct(req.body);
-      return res.status(201).json(product);
-    } catch (error) {
-      return next(error);
+  route.post(
+    '/',
+    middlewares.validateRequest({
+      body: ProductSchema,
+    }),
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const productsService = Container.get(ProductsService);
+        const product = await productsService.addProduct(req.body);
+        return res.status(201).json(product);
+      } catch (error) {
+        return next(error);
+      }
     }
-  });
+  );
 };
 
 export default products;
