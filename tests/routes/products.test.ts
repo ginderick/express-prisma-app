@@ -13,7 +13,7 @@ afterEach(async () => {
   await server.close();
 });
 
-test('should return 200', async () => {
-  const res = await request(server).get('/complaints');
+test('should return 200 for getting all products', async () => {
+  const res = await request(server).get('/products');
   expect(res.status).toBe(200);
 });
