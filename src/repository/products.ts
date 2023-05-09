@@ -11,6 +11,13 @@ export default class ProductsRepository {
     return complaints;
   }
 
+  public async getProduct(sku: string) {
+    const product = prisma.product.findFirst({
+      where: {sku: sku},
+    });
+    return product;
+  }
+
   public async addProduct(data: any) {
     const product = prisma.product.create({
       data: {
