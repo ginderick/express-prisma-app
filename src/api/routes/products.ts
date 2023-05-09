@@ -40,13 +40,13 @@ const products = (app: Router) => {
     '/:sku',
     middlewares.validateRequest({params: ProductParamSchema}),
     async (req: Request, res: Response, next: NextFunction) => {
-      res.status(200).json({
-        id: 7,
-        sku: '12345678',
-        name: 'shirt',
-        quantity: 2,
-        price: 132,
-      });
+      try {
+        const productsService = Container.get(ProductsService);
+        const product = await productsService.getProduct(req.params.sku);
+        return res.status(200).json(product);
+      } catch (error) {
+        return next(error);
+      }
     }
   );
 };
