@@ -5,7 +5,7 @@ import 'reflect-metadata';
 let server;
 beforeEach(async () => {
   const app = express();
-  await require('../../src/loaders').default({expressApp: app});
+  await require('../../../src/loaders').default({expressApp: app});
   server = app.listen(8001);
 });
 
