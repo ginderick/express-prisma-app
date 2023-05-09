@@ -9,9 +9,9 @@ export default class ProductsService {
     private productsRepository = Container.get(ProductsRepository)
   ) {}
 
-  public async getProducts() {
+  public async getProducts(limit: number, page: number) {
     this.logger.info('Service: Getting products');
-    const products = this.productsRepository.getProducts();
+    const products = this.productsRepository.getProducts(limit, page);
     return products;
   }
 

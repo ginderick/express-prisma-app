@@ -13,8 +13,17 @@ const products = (app: Router) => {
   route.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const productsService = Container.get(ProductsService);
-      const products = await productsService.getProducts();
-      return res.status(200).json(products);
+      const page = +req.query.page! || 1;
+      const limit = 10;
+
+      const products = await productsService.getProducts(limit, page);
+
+      const result = {
+        products,
+        page: page,
+      };
+
+      return res.status(200).json(result);
     } catch (error) {
       return next(error);
     }

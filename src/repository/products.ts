@@ -6,8 +6,12 @@ import {Logger} from 'winston';
 export default class ProductsRepository {
   constructor(@Inject('logger') private logger: Logger) {}
 
-  public async getProducts() {
-    const complaints = prisma.product.findMany();
+  public async getProducts(limit: number, page: number) {
+    const complaints = prisma.product.findMany({
+      skip: (page - 1) * limit,
+      take: limit,
+      orderBy: {name: 'asc'},
+    });
     return complaints;
   }
 

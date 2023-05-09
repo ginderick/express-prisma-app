@@ -17,8 +17,10 @@ test('should get all products', async () => {
   const logger = loggerInstance;
   const productsRepository = new ProductsRepository(logger);
   const productsService = new ProductsService(logger, productsRepository);
+  const limit = 10;
+  const page = 1;
 
-  await expect(productsService.getProducts()).resolves.toEqual([
+  await expect(productsService.getProducts(limit, page)).resolves.toEqual([
     {
       id: 1,
       sku: '123',
