@@ -1,4 +1,6 @@
+import LoggerInstance from '../../loaders/logger';
 import {NextFunction, Request, Response} from 'express';
+import {loggers} from 'winston';
 import {AnyZodObject, ZodError} from 'zod';
 
 export default interface RequestValidators {
@@ -14,9 +16,7 @@ export function validateRequest(validators: RequestValidators) {
         req.params = await validators.params.parseAsync(req.params);
       }
       if (validators.body) {
-        console.log(req.body);
         req.body = await validators.body.parseAsync(req.body);
-        console.log(req.body);
       }
       if (validators.query) {
         req.query = await validators.query.parseAsync(req.query);
@@ -25,8 +25,11 @@ export function validateRequest(validators: RequestValidators) {
     } catch (error) {
       if (error instanceof ZodError) {
         const zodError = JSON.parse(error.message);
-        res.status(400).json({message: zodError});
+        res.status(422).json({message: zodError});
+        LoggerInstance.info(`Validation failed: ${zodError[0].message}`);
+        return;
       }
+      LoggerInstance.error(error);
       next(error);
     }
   };
