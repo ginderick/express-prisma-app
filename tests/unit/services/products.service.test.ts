@@ -1,7 +1,7 @@
-import {prismaMock} from '../singleton';
-import ProductsService from '../../src/services/products';
-import ProductsRepository from '../../src/repository/products';
-import loggerInstance from '../../src/loaders/logger';
+import {prismaMock} from '../../singleton';
+import ProductsService from '../../../src/services/products';
+import ProductsRepository from '../../../src/repository/products';
+import loggerInstance from '../../../src/loaders/logger';
 
 test('should get all products', async () => {
   const product = {
