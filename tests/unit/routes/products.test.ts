@@ -18,6 +18,11 @@ test('should return 200 for getting all products', async () => {
   expect(res.status).toBe(200);
 });
 
+test('should return 200 for getting a product with sku', async () => {
+  const res = await request(server).get('/products/1234');
+  expect(res.status).toBe(200);
+});
+
 test('should return 201 when adding a product', async () => {
   const payload = {
     sku: '12345678',
