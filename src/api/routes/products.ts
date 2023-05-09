@@ -43,6 +43,10 @@ const products = (app: Router) => {
       try {
         const productsService = Container.get(ProductsService);
         const product = await productsService.getProduct(req.params.sku);
+
+        if (!product) {
+          return res.status(404).send({error: 'product not found'});
+        }
         return res.status(200).json(product);
       } catch (error) {
         return next(error);
