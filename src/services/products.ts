@@ -15,6 +15,12 @@ export default class ProductsService {
     return products;
   }
 
+  public async getProduct(sku: string) {
+    this.logger.info('Service: Getting a product');
+    const product = this.productsRepository.getProduct(sku);
+    return product;
+  }
+
   public async addProduct(data: any) {
     this.logger.info('Service: Adding a product');
     const product = this.productsRepository.addProduct(data);
