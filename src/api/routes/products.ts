@@ -3,8 +3,7 @@ import {Router, Request, Response, NextFunction} from 'express';
 import Container from 'typedi';
 import {Logger} from 'winston';
 import middlewares from '../middlewares';
-import {ProductSchema} from '../../schema/ProductSchema';
-// import ProductSchema from '../../schema/ProductSchema';
+import {ProductParamSchema, ProductSchema} from '../../schema/ProductSchema';
 
 const route = Router();
 
@@ -34,6 +33,20 @@ const products = (app: Router) => {
       } catch (error) {
         return next(error);
       }
+    }
+  );
+
+  route.get(
+    '/:sku',
+    middlewares.validateRequest({params: ProductParamSchema}),
+    async (req: Request, res: Response, next: NextFunction) => {
+      res.status(200).json({
+        id: 7,
+        sku: '12345678',
+        name: 'shirt',
+        quantity: 2,
+        price: 132,
+      });
     }
   );
 };
