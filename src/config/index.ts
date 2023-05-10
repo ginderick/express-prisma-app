@@ -22,4 +22,9 @@ export default {
   logs: {
     level: process.env.LOG_LEVEL || 'silly',
   },
+
+  token: {
+    privateJWTKey: process.env.TOKEN_SECRET_PRIVATE,
+    publicJWTKey: process.env.TOKEN_SECRET_PUBLIC,
+  },
 };
