@@ -17,4 +17,16 @@ export default class TokenService {
 
     return token;
   }
+
+  public async generateRefreshToken(user: string) {
+    return jwt.sign(
+      {
+        user: user,
+      },
+      config.token.privateJWTKey!,
+      {
+        expiresIn: '24h',
+      }
+    );
+  }
 }
