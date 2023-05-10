@@ -14,6 +14,10 @@ afterEach(async () => {
 });
 
 test('should return 200 with login', async () => {
-  const res = await request(server).post('/users/login');
+  const payload = {
+    username: 'ginderick',
+    password: 'test123',
+  };
+  const res = await request(server).post('/users/login').send(payload);
   expect(res.status).toBe(200);
 });
