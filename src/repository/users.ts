@@ -10,4 +10,15 @@ export default class UsersRepository {
     const user = prisma.user.findFirst({where: {username: username}});
     return user;
   }
+
+  public async addUser(body: any) {
+    const user = prisma.user.create({
+      data: {
+        username: body.username,
+        email: body.email,
+        password: body.password,
+      },
+    });
+    return user;
+  }
 }

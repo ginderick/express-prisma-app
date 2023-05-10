@@ -15,4 +15,10 @@ export default class UsersService {
     const user = this.productsRepository.getUser(username);
     return user;
   }
+
+  public async addUser(body: any) {
+    this.logger.info('Adding user');
+    const user = await this.productsRepository.addUser(body);
+    return user;
+  }
 }
