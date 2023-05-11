@@ -18,7 +18,7 @@ const users = (app: Router) => {
         const usersService = Container.get(UsersService);
         const user = await usersService.addUser(req.body);
         return res.status(201).json({
-          email: user.email,
+          user,
         });
       } catch (error) {
         return next(error);

@@ -16,9 +16,9 @@ export default class UsersRepository {
       data: {
         username: body.username,
         email: body.email,
-        password: body.password,
+        hashed_password: body.password,
       },
     });
-    return user;
+    return (await user).username;
   }
 }
