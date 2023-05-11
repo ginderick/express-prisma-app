@@ -40,7 +40,7 @@ test('should get product using sku', async () => {
     price: 123,
   };
 
-  prismaMock.product.findFirst.mockResolvedValue(product);
+  prismaMock.product.findUnique.mockResolvedValue(product);
   const logger = loggerInstance;
   const productsRepository = new ProductsRepository(logger);
   const productsService = new ProductsService(logger, productsRepository);
