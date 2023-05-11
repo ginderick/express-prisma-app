@@ -16,7 +16,7 @@ export default class ProductsRepository {
   }
 
   public async getProduct(sku: string) {
-    const product = prisma.product.findFirst({
+    const product = prisma.product.findUnique({
       where: {sku: sku},
     });
     return product;
