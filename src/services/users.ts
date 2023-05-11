@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import Container, {Inject, Service} from 'typedi';
 import {Logger} from 'winston';
 import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 
 @Service()
 export default class UsersService {
@@ -27,5 +28,11 @@ export default class UsersService {
 
     const user = await this.productsRepository.addUser(hashedUser);
     return user;
+  }
+
+  public async verifyUser(password: string, userHashedPassword: string) {
+    this.logger.info('Verifying user');
+    const result = await bcrypt.compare(password, userHashedPassword);
+    return result;
   }
 }

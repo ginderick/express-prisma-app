@@ -19,6 +19,6 @@ export default class UsersRepository {
         hashed_password: body.hashed_password,
       },
     });
-    return (await user).username;
+    return user;
   }
 }

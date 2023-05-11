@@ -38,7 +38,12 @@ const users = (app: Router) => {
         const password = req.body.password;
 
         const user = await usersService.getUser(username);
+
         if (!user) return res.status(401).send({error: 'Unauthorized'});
+
+        const passwordVerified = await usersService.verifyUser(password, user.hashed_password);
+        if (!passwordVerified) return res.status(401).send({error: 'Unauthorized'});
+
         const token = await tokenService.generateAccessToken(username);
         const refreshToken = await tokenService.generateAccessToken(username);
         return res.status(200).json({access_token: token, refresh_token: refreshToken});
