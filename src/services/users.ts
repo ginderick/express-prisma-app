@@ -2,6 +2,7 @@ import UsersRepository from '../repository/users';
 import 'reflect-metadata';
 import Container, {Inject, Service} from 'typedi';
 import {Logger} from 'winston';
+import bcrypt from 'bcrypt';
 
 @Service()
 export default class UsersService {
@@ -18,7 +19,13 @@ export default class UsersService {
 
   public async addUser(body: any) {
     this.logger.info('Adding user');
-    const user = await this.productsRepository.addUser(body);
+
+    const hashed_password = await bcrypt.hash(body.password, 10);
+
+    const {password, ...hashedUser} = body;
+    hashedUser.hashed_password = hashed_password;
+
+    const user = await this.productsRepository.addUser(hashedUser);
     return user;
   }
 }
