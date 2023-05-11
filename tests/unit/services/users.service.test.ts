@@ -8,7 +8,7 @@ test('should get user', async () => {
     id: 1,
     username: 'ginderick',
     email: 'ginderick@gmail.com',
-    password: '123',
+    hashed_password: '123',
   };
 
   prismaMock.user.findFirst.mockResolvedValue(user);
