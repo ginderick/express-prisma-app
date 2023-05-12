@@ -27,6 +27,7 @@ export default class ProductsRepository {
       data: {
         sku: data.sku,
         name: data.name,
+        category: data.category,
         quantity: data.quantity,
         price: data.price,
       },
