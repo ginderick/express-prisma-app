@@ -8,6 +8,7 @@ test('should get all products', async () => {
     id: 1,
     sku: '123',
     name: 'shoes',
+    category: 'shoes',
     quantity: 123,
     price: 123,
   };
@@ -25,6 +26,7 @@ test('should get all products', async () => {
       id: 1,
       sku: '123',
       name: 'shoes',
+      category: 'shoes',
       quantity: 123,
       price: 123,
     },
@@ -36,6 +38,7 @@ test('should get product using sku', async () => {
     id: 1,
     sku: '123',
     name: 'shoes',
+    category: 'shoes',
     quantity: 123,
     price: 123,
   };

@@ -25,6 +25,7 @@ test('should return 200 for getting a product with sku', async () => {
     id: 1,
     sku: `${sku}`,
     name: 'shoes',
+    category: 'test',
     quantity: 123,
     price: 123,
   };
@@ -52,6 +53,7 @@ test('should return 201 when adding a product', async () => {
   const payload = {
     sku: '12345678',
     name: 'shirt',
+    category: 'clothes',
     quantity: 2,
     price: 132,
   };
