@@ -3,6 +3,7 @@ import {z} from 'zod';
 export const ProductSchema = z.object({
   sku: z.string(),
   name: z.string(),
+  category: z.string(),
   quantity: z.number(),
   price: z.number(),
 });
