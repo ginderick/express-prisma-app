@@ -34,3 +34,15 @@ services:
     networks:
       testing:
         ipv4_address: 172.20.0.3
+
+  db-stg:
+    # will build ./docker/db/Dockerfile
+    image: postgres:14.6
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      testing:
+        ipv4_address: 172.20.0.4
