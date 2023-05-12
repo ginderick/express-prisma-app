@@ -2,15 +2,9 @@ import {prismaMock} from '../../singleton';
 import UsersService from '../../../src/services/users';
 import UsersRepository from '../../../src/repository/users';
 import loggerInstance from '../../../src/loaders/logger';
+import {user} from '../../utils/utils';
 
 test('should get user', async () => {
-  const user = {
-    id: 1,
-    username: 'ginderick',
-    email: 'ginderick@gmail.com',
-    hashed_password: '123',
-  };
-
   prismaMock.user.findFirst.mockResolvedValue(user);
   const logger = loggerInstance;
   const usersRepository = new UsersRepository(logger);
