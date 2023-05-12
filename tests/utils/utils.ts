@@ -9,3 +9,28 @@ export const loginPayload = {
   username: 'ginderick',
   password: 'yahoomail123',
 };
+
+export const product = {
+  id: 1,
+  sku: '123',
+  name: 'shoes',
+  category: 'shoes',
+  quantity: 123,
+  price: 123,
+};
+
+export const productPayload = {
+  sku: '12345678',
+  name: 'shirt',
+  category: 'clothes',
+  quantity: 2,
+  price: 132,
+};
+
+export const invalidProductPayload = {
+  sku: '12345678',
+  name: 'shirt',
+  category: 'clothes',
+  quantity: '2',
+  price: '132',
+};
