@@ -15,32 +15,36 @@ afterEach(async () => {
   await server.close();
 });
 
-test('should return 200 for getting all products', async () => {
-  const res = await request(server).get('/products');
-  expect(res.status).toBe(200);
+describe('GET /products', () => {
+  it('should return 200 for getting all products', async () => {
+    const res = await request(server).get('/products');
+    expect(res.status).toBe(200);
+  });
+
+  it('should return 200 for getting a product with sku', async () => {
+    const sku = product.sku;
+
+    prismaMock.product.findUnique.mockResolvedValue(product);
+    const res = await request(server).get(`/products/${sku}`);
+    expect(res.status).toBe(200);
+    expect(res.body.sku).toEqual(sku);
+  });
+
+  it('should return 404 for if product is not found', async () => {
+    prismaMock.product.findUnique.mockResolvedValue(null);
+    const res = await request(server).get('/products/56');
+    expect(res.status).toBe(404);
+  });
 });
 
-test('should return 200 for getting a product with sku', async () => {
-  const sku = product.sku;
+describe('POST /products', () => {
+  it('should return 201 when adding a product', async () => {
+    const res = await request(server).post('/products').send(productPayload);
+    expect(res.status).toBe(201);
+  });
 
-  prismaMock.product.findUnique.mockResolvedValue(product);
-  const res = await request(server).get(`/products/${sku}`);
-  expect(res.status).toBe(200);
-  expect(res.body.sku).toEqual(sku);
-});
-
-test('should return 404 for if product is not found', async () => {
-  prismaMock.product.findUnique.mockResolvedValue(null);
-  const res = await request(server).get('/products/56');
-  expect(res.status).toBe(404);
-});
-
-test('should return 201 when adding a product', async () => {
-  const res = await request(server).post('/products').send(productPayload);
-  expect(res.status).toBe(201);
-});
-
-test('should return 422 when adding an invalid product', async () => {
-  const res = await request(server).post('/products').send(invalidProductPayload);
-  expect(res.status).toBe(422);
+  it('should return 422 when adding an invalid product', async () => {
+    const res = await request(server).post('/products').send(invalidProductPayload);
+    expect(res.status).toBe(422);
+  });
 });
