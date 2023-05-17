@@ -45,7 +45,7 @@ const users = (app: Router) => {
         if (!passwordVerified) return res.status(401).send({error: 'Unauthorized'});
 
         const token = await tokenService.generateAccessToken(username);
-        const refreshToken = await tokenService.generateAccessToken(username);
+        const refreshToken = await tokenService.generateRefreshToken(username);
         return res.status(200).json({access_token: token, refresh_token: refreshToken});
       } catch (error) {
         return next(error);
