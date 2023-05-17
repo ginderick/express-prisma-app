@@ -2,10 +2,6 @@ import config from '../../config';
 import {NextFunction, Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 
-interface AuthenticatedRequest extends Request {
-  tokenPayload: any;
-}
-
 export function authenticate() {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
