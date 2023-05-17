@@ -10,24 +10,28 @@ const route = Router();
 const products = (app: Router) => {
   app.use('/products', route);
 
-  route.get('/', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const productsService = Container.get(ProductsService);
-      const page = +req.query.page! || 1;
-      const limit = 10;
+  route.get(
+    '/',
+    middlewares.authenticate(),
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const productsService = Container.get(ProductsService);
+        const page = +req.query.page! || 1;
+        const limit = 10;
 
-      const products = await productsService.getProducts(limit, page);
+        const products = await productsService.getProducts(limit, page);
 
-      const result = {
-        products,
-        page: page,
-      };
+        const result = {
+          products,
+          page: page,
+        };
 
-      return res.status(200).json(result);
-    } catch (error) {
-      return next(error);
+        return res.status(200).json(result);
+      } catch (error) {
+        return next(error);
+      }
     }
-  });
+  );
 
   route.post(
     '/',
