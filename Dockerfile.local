@@ -21,4 +21,4 @@ COPY --from=build /app/prisma ./
 
 RUN npx prisma generate
 
-CMD ["node", "./app.js"]
+CMD ["node", "./src/app.js"]
