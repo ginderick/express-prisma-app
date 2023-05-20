@@ -7,7 +7,7 @@ export default class TokenService {
   public async generateAccessToken(user: string) {
     const token = jwt.sign(
       {
-        user: user,
+        sub: user,
       },
       config.token.privateJWTKey!,
       {
@@ -21,7 +21,7 @@ export default class TokenService {
   public async generateRefreshToken(user: string) {
     return jwt.sign(
       {
-        user: user,
+        sub: user,
       },
       config.token.privateJWTKey!,
       {
