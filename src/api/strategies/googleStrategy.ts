@@ -5,7 +5,7 @@ export const googleStrategy = new GoogleStrategy(
   {
     clientID: config.google.clientId!,
     clientSecret: config.google.clientSecret!,
-    callbackURL: 'http:localhost:8001/auth/google/callback',
+    callbackURL: 'http://localhost:8001/auth/google/callback',
     scope: ['profile', 'email'],
   },
   (accessToken, refreshToken, profile, done) => {
