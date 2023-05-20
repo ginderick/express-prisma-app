@@ -25,25 +25,6 @@ const users = (app: Router) => {
       }
     }
   );
-
-  route.post(
-    '/login',
-    middlewares.validateRequest({body: LoginUserSchema}),
-    middlewares.authenticateMultiple(['local']),
-    async (req: Request, res: Response, next: NextFunction) => {
-      try {
-        const tokenService = Container.get(TokenService);
-
-        const user: any = req.user;
-
-        const token = await tokenService.generateAccessToken(user.username);
-        const refreshToken = await tokenService.generateRefreshToken(user.username);
-        return res.status(200).json({access_token: token, refresh_token: refreshToken});
-      } catch (error) {
-        return next(error);
-      }
-    }
-  );
 };
 
 export default users;
