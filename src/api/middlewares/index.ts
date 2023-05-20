@@ -1,7 +1,8 @@
 import {validateRequest} from './validator';
-import {authenticate} from './authentication';
+import {authenticate, authenticateMultiple} from './authentication';
 
 export default {
   validateRequest,
   authenticate,
+  authenticateMultiple,
 };
