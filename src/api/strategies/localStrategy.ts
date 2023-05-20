@@ -1,6 +1,6 @@
 import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
-import prisma from '../../prisma';
+import prisma from '../../../prisma';
 import bcrypt from 'bcrypt';
 
 export const localStrategy = new LocalStrategy(async function verify(username, password, done) {

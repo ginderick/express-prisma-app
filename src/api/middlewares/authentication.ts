@@ -2,7 +2,7 @@ import config from '../../config';
 import {NextFunction, Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
-import {localStrategy} from '../../strategies/localStrategy';
+import {localStrategy} from '../strategies/localStrategy';
 
 passport.use('local', localStrategy);
 
