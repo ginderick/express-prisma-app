@@ -8,14 +8,14 @@ const jwtOptions = {
 };
 
 type Payload = {
-  user: string;
+  sub: string;
   iat: number;
   exp: number;
 };
 
 export const jwtStrategy = new JwtStrategy(jwtOptions, async (payload: Payload, done: any) => {
   try {
-    const user = await prisma.user.findUnique({where: {username: payload.user}});
+    const user = await prisma.user.findUnique({where: {username: payload.sub}});
     if (!user) {
       return done(null, false);
     }
