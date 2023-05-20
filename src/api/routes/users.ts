@@ -29,23 +29,15 @@ const users = (app: Router) => {
   route.post(
     '/login',
     middlewares.validateRequest({body: LoginUserSchema}),
+    middlewares.authenticateMultiple(['local']),
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const tokenService = Container.get(TokenService);
-        const usersService = Container.get(UsersService);
 
-        const username = req.body.username;
-        const password = req.body.password;
+        const user: any = req.user;
 
-        const user = await usersService.getUser(username);
-
-        if (!user) return res.status(401).send({error: 'Unauthorized'});
-
-        const passwordVerified = await usersService.verifyUser(password, user.hashed_password);
-        if (!passwordVerified) return res.status(401).send({error: 'Unauthorized'});
-
-        const token = await tokenService.generateAccessToken(username);
-        const refreshToken = await tokenService.generateRefreshToken(username);
+        const token = await tokenService.generateAccessToken(user.username);
+        const refreshToken = await tokenService.generateRefreshToken(user.username);
         return res.status(200).json({access_token: token, refresh_token: refreshToken});
       } catch (error) {
         return next(error);
