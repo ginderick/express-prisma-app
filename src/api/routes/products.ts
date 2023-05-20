@@ -12,7 +12,7 @@ const products = (app: Router) => {
 
   route.get(
     '/',
-    middlewares.authenticate(),
+    middlewares.authenticateMultiple(['jwt']),
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const productsService = Container.get(ProductsService);
