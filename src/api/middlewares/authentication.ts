@@ -3,8 +3,10 @@ import {NextFunction, Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import {localStrategy} from '../strategies/localStrategy';
+import {jwtStrategy} from '../strategies/jwtStrategy';
 
 passport.use('local', localStrategy);
+passport.use('jwt', jwtStrategy);
 
 export function authenticate() {
   return async (req: Request, res: Response, next: NextFunction) => {
