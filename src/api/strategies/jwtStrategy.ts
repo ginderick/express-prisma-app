@@ -1,5 +1,4 @@
 import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
-import prisma from '../../../prisma';
 import config from '../../config';
 
 const jwtOptions = {
@@ -15,7 +14,7 @@ type Payload = {
 
 export const jwtStrategy = new JwtStrategy(jwtOptions, async (payload: Payload, done: any) => {
   try {
-    const user = await prisma.user.findUnique({where: {username: payload.sub}});
+    const user = {user: payload.sub};
     if (!user) {
       return done(null, false);
     }

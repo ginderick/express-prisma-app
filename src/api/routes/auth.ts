@@ -3,6 +3,7 @@ import middlewares from '../middlewares';
 import {LoginUserSchema} from '../../schema/UserSchema';
 import Container from 'typedi';
 import TokenService from '../../services/token';
+import config from '../../config';
 
 const route = Router();
 
@@ -25,6 +26,31 @@ const auth = (app: Router) => {
       } catch (error) {
         return next(error);
       }
+    }
+  );
+
+  route.get(
+    '/google-login',
+    middlewares.authenticateMultiple(['google']),
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        // const tokenService = Container.get(TokenService);
+        // const user: any = req.user;
+        // const token = await tokenService.generateAccessToken(user.username);
+        // const refreshToken = await tokenService.generateRefreshToken(user.username);
+        // return res.status(200).json({access_token: token, refresh_token: refreshToken});
+      } catch (error) {
+        return next(error);
+      }
+    }
+  );
+
+  route.get(
+    '/google/callback',
+    middlewares.authenticateMultiple(['google']),
+    async (req: Request, res: Response, next: NextFunction) => {
+      // Successful authentication, redirect or respond with a success message
+      res.status(200).json({message: 'test'});
     }
   );
 };

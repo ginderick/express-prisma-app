@@ -27,4 +27,9 @@ export default {
     privateJWTKey: process.env.TOKEN_SECRET_PRIVATE,
     publicJWTKey: process.env.TOKEN_SECRET_PUBLIC,
   },
+
+  google: {
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  },
 };

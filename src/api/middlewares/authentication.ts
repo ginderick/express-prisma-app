@@ -4,9 +4,11 @@ import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import {localStrategy} from '../strategies/localStrategy';
 import {jwtStrategy} from '../strategies/jwtStrategy';
+import {googleStrategy} from '../strategies/googleStrategy';
 
 passport.use('local', localStrategy);
 passport.use('jwt', jwtStrategy);
+passport.use('google', googleStrategy);
 
 export function authenticate() {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -30,7 +32,6 @@ export const authenticateMultiple = (strategies: string[]) => {
       if (!user) {
         return res.status(401).json({error: info || 'Authentication failed'});
       }
-
       const {hashed_password, email, ...userInfo} = user;
       req.user = userInfo;
       return next();
